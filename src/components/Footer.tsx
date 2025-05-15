@@ -7,7 +7,7 @@ const Footer: React.FC = () => {
       <div className="container mx-auto flex flex-col sm:flex-row justify-between items-center text-xs text-gray-400">
         <div className="flex items-center mb-2 sm:mb-0">
           <Shield className="h-4 w-4 text-cyan-400 mr-1" />
-          <span>DORKBOT.AI © 2025 | Advanced Google Dorking Tool</span>
+          <span>DORKBOT.AI © 2025 | Advanced Google Dorking Tool By.N.Flory</span>
         </div>
         
         <div className="flex items-center space-x-4">
