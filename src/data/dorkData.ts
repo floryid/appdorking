@@ -88,6 +88,102 @@ export const dorkData = [
     tags: ['wordpress', 'cms']
   },
   {
+    id: 'sqli-basic',
+    query: 'site:${domain} inurl:id= | inurl:cat= | inurl:pid= | inurl:product= | inurl:news= | inurl:item= | inurl:shop= | inurl:profile= | inurl:uid= | inurl:userid= | inurl:order= | inurl:report=',
+    path: '/index.php?id=1',
+    title: 'Basic SQL Injection Point',
+    description: 'Parameter pada URL yang umum digunakan dan berpotensi rentan terhadap serangan SQL Injection.',
+    tags: ['sqli', 'injection', 'parameter']
+  },
+  {
+    id: 'sqli-union',
+    query: 'site:${domain} inurl:".php?id=" "UNION SELECT" -site:stackoverflow.com',
+    path: '/index.php?id=1 UNION SELECT 1,2,3',
+    title: 'SQLi UNION SELECT',
+    description: 'Mendeteksi kemungkinan penggunaan UNION SELECT pada parameter yang rentan SQL Injection.',
+    tags: ['sqli', 'union', 'injection']
+  },
+  {
+    id: 'sqli-error-based',
+    query: 'site:${domain} inurl:id= "You have an error in your SQL syntax;" | "mysql_fetch" | "ORA-00933" | "Syntax error" | "Warning: mysql_"',
+    path: '/index.php?id=1',
+    title: 'SQLi Error Based',
+    description: 'Pesan error SQL yang muncul di halaman dapat mengindikasikan kerentanan SQL Injection.',
+    tags: ['sqli', 'error', 'injection']
+  },
+  {
+    id: 'sqli-boolean-based',
+    query: 'site:${domain} inurl:id= "AND 1=1" | "AND 1=2"',
+    path: '/index.php?id=1 AND 1=1',
+    title: 'SQLi Boolean Based',
+    description: 'Payload boolean untuk mendeteksi SQL Injection berbasis logika TRUE/FALSE.',
+    tags: ['sqli', 'boolean', 'injection']
+  },
+  {
+    id: 'sqli-time-based',
+    query: 'site:${domain} inurl:id= "SLEEP(5)" | "WAITFOR DELAY" | "BENCHMARK("',
+    path: '/index.php?id=1 SLEEP(5)',
+    title: 'SQLi Time Based',
+    description: 'Payload time-based untuk mendeteksi SQL Injection dengan delay waktu.',
+    tags: ['sqli', 'time', 'injection']
+  },
+  {
+    id: 'xss-basic',
+    query: 'site:${domain} inurl:q= | inurl:s= | inurl:search= | inurl:query= | inurl:keyword= | inurl:message= | inurl:comment= | inurl:email= | inurl:page= | inurl:redirect= | inurl:url=',
+    path: '/search.php?q=<script>alert(1)</script>',
+    title: 'Basic XSS Point',
+    description: 'Parameter umum yang sering menjadi target serangan XSS.',
+    tags: ['xss', 'injection', 'parameter']
+  },
+  {
+    id: 'xss-script-tag',
+    query: 'site:${domain} "<script>alert(1)</script>"',
+    path: '/index.php?q=<script>alert(1)</script>',
+    title: 'XSS Script Tag',
+    description: 'Payload XSS klasik menggunakan tag <script>.',
+    tags: ['xss', 'script', 'injection']
+  },
+  {
+    id: 'xss-img-onerror',
+    query: 'site:${domain} "<img src=x onerror=alert(1)>"',
+    path: '/index.php?q=<img src=x onerror=alert(1)>',
+    title: 'XSS Image OnError',
+    description: 'Payload XSS menggunakan atribut onerror pada tag img.',
+    tags: ['xss', 'img', 'onerror', 'injection']
+  },
+  {
+    id: 'xss-html-attribute',
+    query: 'site:${domain} "onmouseover=alert(1)"',
+    path: '/index.php?q=" onmouseover=alert(1)',
+    title: 'XSS HTML Attribute',
+    description: 'Payload XSS menggunakan event handler HTML seperti onmouseover.',
+    tags: ['xss', 'attribute', 'injection']
+  },
+  {
+    id: 'xss-svg',
+    query: 'site:${domain} "<svg/onload=alert(1)>"',
+    path: '/index.php?q=<svg/onload=alert(1)>',
+    title: 'XSS SVG OnLoad',
+    description: 'Payload XSS menggunakan tag SVG dan event onload.',
+    tags: ['xss', 'svg', 'onload', 'injection']
+  },
+  {
+    id: 'xss-meta-refresh',
+    query: 'site:${domain} "<meta http-equiv=refresh content=0;url=javascript:alert(1)>"',
+    path: '/index.php?q=<meta http-equiv=refresh content=0;url=javascript:alert(1)>',
+    title: 'XSS Meta Refresh',
+    description: 'Payload XSS menggunakan tag meta refresh.',
+    tags: ['xss', 'meta', 'refresh', 'injection']
+  },
+  {
+    id: 'wordpress-files',
+    query: 'site:${domain} inurl:wp-content | inurl:wp-includes',
+    path: '/wp-config.php',
+    title: 'WordPress Configuration Exposed',
+    description: 'WordPress configuration files are accessible. These contain database credentials and security keys.',
+    tags: ['wordpress', 'cms']
+  },
+  {
     id: 'sql-injection',
     query: 'site:${domain} inurl:id= | inurl:pid= | inurl:category= | inurl:page= | inurl:view=',
     path: '/product.php?id=1',
